@@ -31,20 +31,31 @@ async function createOneCLiente(params) {
 		status: 400,
 		data: null,
 	};
+	// console.log('llego',params);
 	try {
-		const { nombre, apellido, cedula, telefono } =
-			await newclienteSchema.validateAsync(params.cliente);
+		const {
+			location_id,
+			name_company,
+			name_person,
+			cedula,
+			phonenumber,
+			rif,
+			email,
+		} = params;//await newclienteSchema.validateAsync(params.cliente);
 		const findClient = await getClientesFilters({
-			...params.cliente,
+			cedula,
 			restrict: false,
 		});
 		if (findClient) {
 			if (findClient.status > 200) {
 				const resp = await ClienteModel.create({
-					nombre,
-					apellido,
+					location_id,
+					name_company,
+					name_person,
 					cedula,
-					telefono,
+					phonenumber,
+					rif,
+					email,
 				});
 				if (resp) {
 					response.data = resp;
@@ -64,6 +75,33 @@ async function createOneCLiente(params) {
 	}
 
 	return response;
+
+	// try {
+	// 	const { cedula } = clienteData;
+
+	// 	// Check for existing client with the same cedula (optional)
+	// 	const existingClient = await ClienteModel.findOne({ where: { cedula } });
+	// 	if (existingClient) {
+	// 		return {
+	// 			message: 'Client with this cedula already exists',
+	// 			status: 400,
+	// 			data: null,
+	// 		};
+	// 	}
+
+	// 	const newClient = await ClienteModel.create(clienteData);
+	// 	return {
+	// 		message: 'Client created successfully',
+	// 		status: 201,
+	// 		data: newClient,
+	// 	};
+	// } catch (error) {
+	// 	return {
+	// 		message: `Error creating client: ${error.message}`,
+	// 		status: 500,
+	// 		data: null,
+	// 	};
+	// }
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -113,28 +151,28 @@ async function getClientesFilters(params) {
 
 	try {
 		// console.log("params-->>",params);
-		const { nombre, apellido, cedula, telefono, restrict } = params;
+		const { cedula,restrict } = params;
 		const whereClause = {};
 
-		// Validar que los valores de entrada no sean nulos o indefinidos
-		if (nombre) {
-			whereClause.nombre = nombre;
-		}
-		if (apellido) {
-			whereClause.apellido = apellido;
-		}
+		// // Validar que los valores de entrada no sean nulos o indefinidos
+		// if (nombre) {
+		// 	whereClause.nombre = nombre;
+		// }
+		// if (apellido) {
+		// 	whereClause.apellido = apellido;
+		// }
 		if (cedula) {
 			whereClause.cedula = cedula;
 		}
-		if (telefono) {
-			whereClause.telefono = telefono;
-		}
+		// if (telefono) {
+		// 	whereClause.telefono = telefono;
+		// }
 		if (Object.keys(whereClause).length > 0) {
 			const where = restrict
 				? { [Op.and]: whereClause }
 				: { [Op.or]: whereClause };
 			const resp = await ClienteModel.findAll({ where });
-			// console.log("--->>>", resp);
+		// 	// console.log("--->>>", resp);
 			if (resp.length > 0) {
 				response.status = 200;
 				response.message = 'Data found';

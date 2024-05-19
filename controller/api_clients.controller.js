@@ -18,13 +18,9 @@ class clientController {
 	static async createCliente(req, res) {
 		try {
 			let cliente;
-			if (req.body.hasOwnProperty('cliente')) {
-				// console.log("entro");
-				cliente = await createOneCLiente({ ...req.body });
-			} else if (req.body.hasOwnProperty('clientes')) {
-				// cliente = await createManyCLientes({});
-			} else {
-			}
+			
+			cliente = await createOneCLiente(req.body);
+			
 			res.status(cliente.status).json(cliente);
 		} catch (error) {
 			// console.error(error);

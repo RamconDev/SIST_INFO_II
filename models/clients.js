@@ -10,7 +10,7 @@ ClienteModel.init(
 			primaryKey: true,
 			allowNull: false,
 			field: "id",
-			defaultValue: sequelize.literal("nextval('seqClient')"),
+			defaultValue: sequelize.literal("nextval('public.\"seqClient\"')"),
 		},
 		location_id: {
 			type: DataTypes.INTEGER,
@@ -37,10 +37,10 @@ ClienteModel.init(
 			allowNull: false,
 			field: "cedula",
 		},
-		phoneDecimal: {
+		phonenumber: {
 			type: DataTypes.STRING(15),
 			allowNull: true,
-			field: "phoneDecimal",
+			field: "phonenumber",
 		},
 		email: {
 			type: DataTypes.STRING(30),
