@@ -41,7 +41,7 @@ async function createOneCLiente(params) {
 			phonenumber,
 			rif,
 			email,
-		} = params;//await newclienteSchema.validateAsync(params.cliente);
+		} = params; // 	await newclienteSchema.validateAsync(params.cliente);
 		const findClient = await getClientesFilters({
 			cedula,
 			restrict: false,
@@ -64,7 +64,7 @@ async function createOneCLiente(params) {
 				}
 			} else {
 				// existen cliente  o clientes con los datos ingresados
-				console.log('existe->', findClient);
+				// console.log('existe->', findClient);
 				const arrayCli = findClient.data ? findClient.data[0] : null;
 				response.data = arrayCli;
 			}
@@ -75,33 +75,6 @@ async function createOneCLiente(params) {
 	}
 
 	return response;
-
-	// try {
-	// 	const { cedula } = clienteData;
-
-	// 	// Check for existing client with the same cedula (optional)
-	// 	const existingClient = await ClienteModel.findOne({ where: { cedula } });
-	// 	if (existingClient) {
-	// 		return {
-	// 			message: 'Client with this cedula already exists',
-	// 			status: 400,
-	// 			data: null,
-	// 		};
-	// 	}
-
-	// 	const newClient = await ClienteModel.create(clienteData);
-	// 	return {
-	// 		message: 'Client created successfully',
-	// 		status: 201,
-	// 		data: newClient,
-	// 	};
-	// } catch (error) {
-	// 	return {
-	// 		message: `Error creating client: ${error.message}`,
-	// 		status: 500,
-	// 		data: null,
-	// 	};
-	// }
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -125,10 +98,9 @@ async function getCLienteById(params) {
 		status: 404,
 		data: null,
 	};
-
 	try {
-		const { clientId } = params;
-		const cliente = await ClienteModel.findById({ where: { id: clientId } });
+		const { id } = params;
+		const cliente = await ClienteModel.findOne({ where: { id } });
 		if (cliente) {
 			response.message = 'Client found';
 			response.status = 200;
@@ -136,6 +108,7 @@ async function getCLienteById(params) {
 		}
 	} catch (error) {
 		// Si ocurre un error, devuelve una respuesta con el mensaje de error
+		// console.log(error);
 		response.message = `Error in getClienteById: ${error.message}`;
 	}
 
@@ -151,7 +124,7 @@ async function getClientesFilters(params) {
 
 	try {
 		// console.log("params-->>",params);
-		const { cedula,restrict } = params;
+		const { cedula, restrict } = params;
 		const whereClause = {};
 
 		// // Validar que los valores de entrada no sean nulos o indefinidos
@@ -172,7 +145,7 @@ async function getClientesFilters(params) {
 				? { [Op.and]: whereClause }
 				: { [Op.or]: whereClause };
 			const resp = await ClienteModel.findAll({ where });
-		// 	// console.log("--->>>", resp);
+			// 	// console.log("--->>>", resp);
 			if (resp.length > 0) {
 				response.status = 200;
 				response.message = 'Data found';

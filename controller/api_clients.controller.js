@@ -1,6 +1,7 @@
 const {
 	createOneCLiente,
 	// createManyCLientes,
+	getCLienteById,
 	getAllClientes,
 } = require('../services/cliente_service');
 
@@ -18,9 +19,9 @@ class clientController {
 	static async createCliente(req, res) {
 		try {
 			let cliente;
-			
+
 			cliente = await createOneCLiente(req.body);
-			
+
 			res.status(cliente.status).json(cliente);
 		} catch (error) {
 			// console.error(error);
@@ -44,19 +45,16 @@ class clientController {
 	//     }
 	//   }
 
-	//   static async getCliente(req, res) {
-	//     try {
-	//       const { id } = req.params;
-	//       const cliente = await Cliente.findOne({ where: { id } });
-	//       if (cliente) {
-	//         res.status(200).json({ message: 'Cliente encontrado', data: cliente });
-	//       }
-	//       throw new Error('Cliente no encontrado');
-	//     } catch (error) {
-	//       console.error(error);
-	//       res.status(404).json({ message: 'Cliente no encontrado' });
-	//     }
-	//   }
+	static async getCliente(req, res) {
+		try {
+			
+			const client= await getCLienteById(req.query);
+			res.status(client.status).json(client);
+		} catch (error) {
+			console.error(error);
+			res.status(404).json({ message: 'Cliente no encontrado' });
+		}
+	}
 }
 
 module.exports = clientController;

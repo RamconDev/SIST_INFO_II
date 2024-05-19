@@ -6,6 +6,7 @@ const { autenticarJWT } = require("../middlewares/JWT");
 
 clientRoute.get("/", autenticarJWT, clientController.getallClientes);
 clientRoute.post("/", autenticarJWT, clientController.createCliente);
+clientRoute.get("/filter", autenticarJWT, clientController.getCliente);
 // clientRoute.get('/:id',autenticarJWT, Productos.getProduct);
 // clientRoute.put('/',autenticarJWT, Productos.updateQtyProduct);
 
