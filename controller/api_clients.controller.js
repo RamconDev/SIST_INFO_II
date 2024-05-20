@@ -47,8 +47,7 @@ class clientController {
 
 	static async getCliente(req, res) {
 		try {
-			
-			const client= await getCLienteById(req.query);
+			const client = await getCLienteById(req.query);
 			res.status(client.status).json(client);
 		} catch (error) {
 			console.error(error);

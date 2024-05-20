@@ -37,10 +37,9 @@ const environment = process.env.NODE_ENV;
 Wlogger.info(`API initiated; starting ${environment} environment...`);
 
 // definiendo las rutas
-// const usersRoutes = require("./routes/users.route");
 const usersRoutes = require("./routes/users.route");
 
-app.use('/user', usersRoutes); // la ruta en la url es la definida en en las comillas, mientras que quien la atiende es la que posee la palabra route
+app.use('/user', usersRoutes); // la ruta en la url es la definida  en las comillas, mientras que quien la atiende es la que posee la palabra route
 
 // const opcabanRouter = require("./routes/opcajabanco.route");
 
@@ -61,6 +60,10 @@ const clientRoute = require("./routes/cliente.route");
 // app.use('/factura', facturaRouter);
 
 app.use("/cliente", clientRoute);
+
+// const rolRoute = require("./routes/rol.route");
+
+// app.use("/rol", rolRoute);
 
 app.use((req, res, next) => {
 	const err = new Error(
