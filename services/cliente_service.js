@@ -78,19 +78,6 @@ async function createOneCLiente(params) {
 }
 
 // eslint-disable-next-line no-unused-vars
-async function createManyCLientes(params) {
-	const response = {
-		message: 'this client already exists',
-		status: 400,
-		data: null,
-	};
-	try {
-		// console.log("==>", params);
-	} catch (error) {
-		// console.log("error --->",error);
-		response.message = `error in createOneCLiente : ${error.message}`;
-	}
-}
 
 async function getCLienteById(params) {
 	const response = {
