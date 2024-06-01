@@ -193,7 +193,7 @@ async function updateOneCliente(params) {
 
 module.exports = {
 	createOneCLiente,
-	createManyCLientes,
+	// createManyCLientes,
 	getCLienteById,
 	getClientesFilters,
 	updateOneCliente,

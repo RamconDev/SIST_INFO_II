@@ -74,6 +74,7 @@ async function mewUser(params) {
 			pass,
 		} = await newuser.validateAsync(params);
 		// console.log("-->",tpoperador_id);
+		const hashedPassword = await bcrypt.hash(pass, 10);
 		const newUser = await UsuarioModel.create({
 			tpoperador_id,
 			location_id,
@@ -83,7 +84,7 @@ async function mewUser(params) {
 			phonenumber,
 			email,
 			login,
-			pass,
+			hashedPassword,
 			status: 'A',
 		});
 		if (newUser) {
