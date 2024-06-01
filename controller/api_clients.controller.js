@@ -6,6 +6,8 @@ const {
 } = require('../services/cliente_service');
 
 class clientController {
+
+	// debe retornar los clientes por sucursal utilizar la view
 	static async getallClientes(req, res) {
 		try {
 			const resp = await getAllClientes(null);
