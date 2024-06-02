@@ -7,8 +7,8 @@ import TableClients from '../Components/TableClients';
 import AddCLient from '../Components/AddClient';
 import AddButton from '../Components/AddButton';
 
-function createData(rif, name, address, telephone) {
-    return { rif, name, address, telephone };
+function createData(rif, name, location, telephone) {
+    return { rif, name, location, telephone };
 }
 
 const initial_state = createData("","","","")
@@ -21,7 +21,7 @@ const Clientes = () => {
     const [view, setView] = useState(false);
     const [edit, setEdit] = useState(false);
     const [add, setAdd] = useState(false);
-
+    const [locationList, setLocationList] = useState([]);
     
 
     const openView = (index) => {
@@ -72,7 +72,7 @@ const Clientes = () => {
 
     useEffect(() => {
 
-        console.log("Aqui se hara el llamado de la api para obtener clientes");
+        setLocationList(["Location1", "Location2", "Location3"])
     }, [])
 
     return (
@@ -85,11 +85,11 @@ const Clientes = () => {
                 Clientes
             </Typography>
             <AddButton action={openAdd} >Agregar Cliente</AddButton>
-            <AddCLient addElement={addElement} isOpen={add} handleClose={closeAdd} />
+            <AddCLient addElement={addElement} isOpen={add} handleClose={closeAdd} locationList={locationList} />
 
-            <TableClients openView={openView} openEdit={openEdit} listClients={listClients} />
-            <InfoClient info={selectInfo} isOpen={view} handleClose={closeView} />
-            <EditClient updateList={updateRecord} isOpen={edit} handleClose={closeEdit}  />
+            <TableClients openView={openView} openEdit={openEdit} listClients={listClients} locationList={locationList} />
+            <InfoClient info={selectInfo} isOpen={view} handleClose={closeView} locationList={locationList} />
+            <EditClient updateList={updateRecord} isOpen={edit} handleClose={closeEdit} locationList={locationList}  />
 
         </Box>
     );

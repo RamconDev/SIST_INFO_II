@@ -27,7 +27,7 @@ const InfoEmployer = (props) => {
             <DialogContent>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Info name="numId" value={info.numId} />
-                    <Info name="Nombre" value={info.name} />
+                    <Info name="Nombre" value={info.name + " " + info.lastname} />
                     <Info name="Status" value={<Typography variant='p' sx={employerStatus[info.status].sx}>
                         {employerStatus[info.status].name}
                     </Typography>} />

@@ -18,7 +18,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import OKButton from "./OKButton";
 import CancelButton from "./CancelButton";
 import useForm from "../utils/useForm";
-import { useState, useEffect } from "react";
 
 const EditRol = (props) => {
 
@@ -33,11 +32,9 @@ const EditRol = (props) => {
     }
 
 
-    const { updateList, isOpen, handleClose } = props
+    const { updateList, isOpen, handleClose, typesOperator, departamentsList } = props
     const [form, handleChange, reset] = useForm(initial)
-    const [departamentsList, setDepartamentsList] = useState([])
-    const [typesOperator, setTypesOperator] = useState([])
-
+  
     const save = () => {
 
         updateList({
@@ -52,12 +49,6 @@ const EditRol = (props) => {
         })
         reset()
     }
-
-    useEffect(() => {
-
-        setDepartamentsList(["ADMINISTRACION", "COMPRAS", "VENTAS"])
-        setTypesOperator(["OPERATOR", "OPERATOR - COM", "SUPERV - COM", "SUPERV - ADMIN"])
-    },[])
 
     return (
         <Dialog

@@ -6,7 +6,7 @@ import Info from "./Info";
 
 const InfoClient = (props) =>{
 
-    const {info, isOpen, handleClose} = props
+    const {info, isOpen, handleClose, locationList} = props
 
     return(
         <Dialog
@@ -31,7 +31,7 @@ const InfoClient = (props) =>{
                     </div>
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Info name="Dirección" value={info.address} />
+                        <Info name="Locación" value={locationList[info.location]} />
                         <Info name="Telefono" value={info.telephone} />
                     </div>
 
