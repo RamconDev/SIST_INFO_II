@@ -45,7 +45,7 @@ EmployeeModel.init(
 			allowNull: false, // Assuming username is required
 		},
 		pass: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(50),
 			allowNull: false, // Assuming password is required
 		},
 		status: {
