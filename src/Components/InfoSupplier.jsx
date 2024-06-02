@@ -1,10 +1,17 @@
-import { Dialog, DialogTitle, DialogContent, Typography, IconButton } from "@mui/material";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    Typography,
+    IconButton
+} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
+import { SupplierStatus } from "../utils/status";
 
 import Info from "./Info";
 
 
-const InfoClient = (props) =>{
+const InfoSupplier = (props) =>{
 
     const {info, isOpen, handleClose, locationList} = props
 
@@ -15,7 +22,7 @@ const InfoClient = (props) =>{
                 sx={{ padding: '10px ' }}>
                 <DialogTitle sx={{display: 'flex', justifyContent: 'space-between'}}>
                     <Typography variant='p' sx={{ fontWeight: 'bold' }} >
-                        Información del cliente
+                        Información del proveedor
 
                     </Typography>
 
@@ -26,19 +33,20 @@ const InfoClient = (props) =>{
                 </DialogTitle>
                 <DialogContent>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Info name="Rif" value={info.rif} />
                         <Info name="Nombre" value={info.name} />
-                    </div>
-                    <br />
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Info name="Locación" value={locationList[info.location]} />
                         <Info name="Telefono" value={info.telephone} />
                     </div>
-
+                    <br />
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Info name="Dirreción" value={info.address} />
+                        <Info name="E-mail" value={info.email} />
+                        <Info name="Status" value={SupplierStatus[info.status].name} />
+                    </div>
                 </DialogContent>
             </Dialog>
     )
 
 }
 
-export default InfoClient
+export default InfoSupplier

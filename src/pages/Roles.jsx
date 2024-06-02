@@ -19,6 +19,8 @@ const Roles = () => {
     const [add, setAdd] = useState(false);
     const [view, setView] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [typesOperator, setTypesOperator] = useState([]);
+    const [departamentsList, setDepartamentsList] = useState([]);
 
     const openView = (index) => {
         const info = listRol[index]
@@ -65,6 +67,12 @@ const Roles = () => {
         setEdit(false)
     }
 
+    useEffect(() => {
+
+        setDepartamentsList(["ADMINISTRACION", "COMPRAS", "VENTAS"])
+        setTypesOperator(["OPERATOR", "OPERATOR - COM", "SUPERV - COM", "SUPERV - ADMIN"])
+    },[])
+
     return (
         <Box sx={{ width: '100%' }}>
 
@@ -75,10 +83,10 @@ const Roles = () => {
                 Roles
             </Typography>
             <AddButton action={openAdd} >Agregar rol</AddButton>
-            <AddRol addElement={addElement} isOpen={add} handleClose={closeAdd} />
+            <AddRol addElement={addElement} isOpen={add} handleClose={closeAdd} typesOperator={typesOperator} departamentsList={departamentsList} />
             <TableRol listRol={listRol} openView={openView} openEdit={openEdit} />
             <InfoRol info={selectInfo} isOpen={view} handleClose={closeView} />
-            <EditRol updateList={updateRecord} isOpen={edit} handleClose={closeEdit} />
+            <EditRol updateList={updateRecord} isOpen={edit} handleClose={closeEdit} typesOperator={typesOperator} departamentsList={departamentsList} />
         </Box>
     );
 }

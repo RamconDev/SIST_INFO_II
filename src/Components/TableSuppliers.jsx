@@ -11,14 +11,13 @@ import {
 } from '@mui/material';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import EditIcon from '@mui/icons-material/Edit';
-import ListIcon from '@mui/icons-material/List';
 import { useState } from 'react';
+import { SupplierStatus } from '../utils/status';
 
 
-const TableClients = (props) => {
+const TableSuppliers = (props) => {
 
-    const { openView, openEdit, listClients, locationList } = props;
+    const { openView, listClients, locationList } = props;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -42,10 +41,10 @@ const TableClients = (props) => {
                 >
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Rif</TableCell>
                             <TableCell align="center">Nombre</TableCell>
                             <TableCell align="center">Locación</TableCell>
                             <TableCell align="center">Telefono</TableCell>
+                            <TableCell align="center">Estado</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -54,23 +53,13 @@ const TableClients = (props) => {
                                 key={index}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell align="center">{row.rif}</TableCell>
                                 <TableCell align="center">{row.name}</TableCell>
                                 <TableCell align="center">{locationList[row.location]}</TableCell>
                                 <TableCell align="center">{row.telephone}</TableCell>
+                                <TableCell align="center">{SupplierStatus[row.status].name}</TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => openView(index)}>
                                         <VisibilityIcon id={index} sx={{ color: "black" }} />
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell>
-                                    <IconButton onClick={() => openEdit(index)}>
-                                        <EditIcon sx={{ color: "black" }} />
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell>
-                                    <IconButton>
-                                        <ListIcon sx={{ color: "black" }} />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
@@ -94,4 +83,4 @@ const TableClients = (props) => {
     )
 }
 
-export default TableClients
+export default TableSuppliers
