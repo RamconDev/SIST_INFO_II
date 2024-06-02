@@ -56,7 +56,7 @@ const TableEmployers = (props) =>{
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell align="center">{row.numId}</TableCell>
-                                    <TableCell align="center">{row.name}</TableCell>
+                                    <TableCell align="center">{row.name + " " + row.lastname}</TableCell>
                                     <TableCell align="center">{row.email}</TableCell>
                                     <TableCell align="center">{row.rol}</TableCell>
                                     <TableCell align="center">{row.date}</TableCell>

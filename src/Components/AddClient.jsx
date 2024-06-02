@@ -9,34 +9,42 @@ import {
     FormControl,
     FormControlLabel,
     TextField,
-    DialogActions
+    DialogActions,
+    InputLabel,
+    Select,
+    MenuItem
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import OKButton from "./OKButton";
 import CancelButton from "./CancelButton";
 import useForm from "../utils/useForm";
+import { ClientStatus } from "../utils/status";
 
-const AddCLient = (props) =>{
+const AddCLient = (props) => {
 
     const initial = {
         typeId: "V",
         rif: "",
         name: "",
         telephone: "",
-        address: "",
+        email: "",
+        location: 0,
+        status: 0
     }
 
 
-    const { addElement, isOpen, handleClose } = props
+    const { addElement, isOpen, handleClose, locationList } = props
     const [form, handleChange, reset] = useForm(initial)
 
 
     const save = () => {
         addElement({
-            rif: form.typeId+"-"+form.rif,
+            rif: form.typeId + "-" + form.rif,
             name: form.name,
             telephone: form.telephone,
-            address: form.address,
+            mail: form.mail,
+            location: form.location,
+            status: form.status
         })
         reset()
     }
@@ -49,7 +57,7 @@ const AddCLient = (props) =>{
             sx={{ padding: '10px ' }}>
             <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant='p' sx={{ fontWeight: 'bold' }} >
-                    Editar cliente
+                    Registrar cliente
                 </Typography>
 
                 <IconButton aria-label="close" onClick={handleClose} sx={{ marginLeft: '8px' }}>
@@ -101,13 +109,46 @@ const AddCLient = (props) =>{
                 <br />
 
                 <TextField
-                    name="address"
-                    label="Dirección"
+                    name="email"
+                    label="E-mail"
                     variant="filled"
                     sx={{ marginBottom: "20px", width: "100%" }}
-                    value={form.address}
+                    value={form.email}
                     onChange={handleChange}
                 />
+
+                <br />
+
+
+                <FormControl sx={{ marginBottom: "20px", width: "100%" }}>
+                    <InputLabel>Locación</InputLabel>
+                    <Select
+                        name="location"
+                        value={form.location}
+                        label="Locación"
+                        onChange={handleChange}
+                    >
+                        {
+                            locationList.map((name, index) => (
+                                <MenuItem value={index} key={index}>{name}</MenuItem>
+                            ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl sx={{ marginBottom: "20px", width: "100%" }}>
+                    <InputLabel>Status</InputLabel>
+                    <Select
+                        name="status"
+                        value={form.status}
+                        label="Status"
+                        onChange={handleChange}
+                    >
+                        {
+                            ClientStatus.map((obj, index) => (
+                                <MenuItem value={index} key={index}>{obj.name}</MenuItem>
+                            ))}
+                    </Select>
+                </FormControl>
 
             </DialogContent>
             <DialogActions>

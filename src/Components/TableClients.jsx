@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 const TableClients = (props) => {
 
-    const { openView, openEdit, listClients } = props;
+    const { openView, openEdit, listClients, locationList } = props;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -44,7 +44,7 @@ const TableClients = (props) => {
                         <TableRow>
                             <TableCell align="center">Rif</TableCell>
                             <TableCell align="center">Nombre</TableCell>
-                            <TableCell align="center">Dirección</TableCell>
+                            <TableCell align="center">Locación</TableCell>
                             <TableCell align="center">Telefono</TableCell>
                         </TableRow>
                     </TableHead>
@@ -56,7 +56,7 @@ const TableClients = (props) => {
                             >
                                 <TableCell align="center">{row.rif}</TableCell>
                                 <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.address}</TableCell>
+                                <TableCell align="center">{locationList[row.location]}</TableCell>
                                 <TableCell align="center">{row.telephone}</TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => openView(index)}>

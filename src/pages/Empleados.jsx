@@ -6,11 +6,11 @@ import EditEmployer from '../Components/EditEmployer';
 import AddButton from '../Components/AddButton';
 import AddEmployer from '../Components/AddEmployer';
 
-function createData(numId, name, email, rol, date, status) {
-    return { numId, name, email, rol, date, status };
+function createData(numId, name, lastname, email, rol, date, status) {
+    return { numId, name,lastname, email, rol, date, status };
 }
 
-const initial_state = createData("","","","","",0)
+const initial_state = createData("","","","","","",0)
 
 const Empleados = () => {
 
@@ -21,6 +21,7 @@ const Empleados = () => {
     const [edit, setEdit] = useState(false);
     const [add, setAdd] = useState(false);
     const [rolList, setRolList] = useState([]);
+    const [locationList, setLocationList] = useState([]);
 
     const openView = (index) => {
         
@@ -69,9 +70,8 @@ const Empleados = () => {
     }
 
     useEffect(() => {
-
-        console.log("Aqui se hara el llamado de la api para obtener empleados");
         setRolList(["Rol1", "Rol2", "Rol3"])
+        setLocationList(["Location1", "Location2", "Location3"])
     }, [])
 
     return (
@@ -84,11 +84,11 @@ const Empleados = () => {
                 Empleados
             </Typography>
             <AddButton action={openAdd} >Agregar Empleado</AddButton>
-            <AddEmployer addElement={addElement} isOpen={add} handleClose={closeAdd} rolList={rolList} />
+            <AddEmployer addElement={addElement} isOpen={add} handleClose={closeAdd} rolList={rolList} locationList={locationList} />
             <TableEmployers listEmployers={listEmployers} openView={openView} openEdit={openEdit} />
             <InfoEmployer info={selectInfo} isOpen={view} handleClose={closeView} />
 
-            <EditEmployer updateList={updateRecord} isOpen={edit} handleClose={closeEdit} rolList={rolList} />
+            <EditEmployer updateList={updateRecord} isOpen={edit} handleClose={closeEdit} rolList={rolList} locationList={locationList} />
         </Box>
     );
 }
