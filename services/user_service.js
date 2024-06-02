@@ -75,6 +75,7 @@ async function mewUser(params) {
 		} = await newuser.validateAsync(params);
 		// console.log("-->",tpoperador_id);
 		const hashedPassword = await bcrypt.hash(pass, 10);
+		// console.log('->', hashedPassword);
 		const newUser = await UsuarioModel.create({
 			tpoperador_id,
 			location_id,
@@ -84,7 +85,7 @@ async function mewUser(params) {
 			phonenumber,
 			email,
 			login,
-			hashedPassword,
+			pass: hashedPassword,
 			status: 'A',
 		});
 		if (newUser) {
@@ -93,7 +94,7 @@ async function mewUser(params) {
 			response.data = newUser;
 		}
 	} catch (error) {
-		// console.log('==>',error);
+		console.log('==>', error);
 		response.message = error.details[0].message;
 		response.status = 400;
 	}
@@ -109,14 +110,22 @@ async function allUser(params) {
 		const { dptoid, locid } = await queryEmpDptoLoc.validateAsync(params);
 		const res = await Usuariodptoloc.findAll({
 			where: { departmentid: dptoid, locationid: locid },
-			attributes: ['employee_id', 'name', 'lastname', 'cedula','phonenumber','email','status'],
+			attributes: [
+				'employee_id',
+				'name',
+				'lastname',
+				'cedula',
+				'phonenumber',
+				'email',
+				'status',
+			],
 		});
 		// console.log(users);
 		if (res) {
 			response.data = res;
 			response.message = 'employees found by this location and departament';
 			response.status = 200;
-		}	
+		}
 	} catch (error) {
 		response.message = error.details[0].message;
 		response.status = 400;
