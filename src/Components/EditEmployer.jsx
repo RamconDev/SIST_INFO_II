@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import OKButton from "./OKButton";
 import CancelButton from "./CancelButton";
 import useForm from "../utils/useForm";
-import { useState, useEffect } from "react";
+import { employerStatus } from "../utils/status";
 
 const EditEmployer = (props) => {
 
@@ -26,14 +26,15 @@ const EditEmployer = (props) => {
         typeId: "V",
         numId: "",
         name: "",
+        lastname:"",
         email: "",
         telephone: "",
-        address: "",
+        location: 0,
         rol: 0,
         status: 0
     }
 
-    const { updateList, isOpen, handleClose, rolList } = props;
+    const { updateList, isOpen, handleClose, rolList, locationList } = props;
     const [form, handleChange, reset] = useForm(initial);
     
     const save = () => {
@@ -44,9 +45,10 @@ const EditEmployer = (props) => {
         updateList({
             numId: form.typeId + "-" + form.numId,
             name: form.name,
+            lastname: form.lastname,
             email: form.email,
             telephone: form.telephone,
-            address: form.address,
+            location: form.location,
             date: today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear(),
             rol: rolList[form.rol],
             status: form.status
@@ -104,6 +106,16 @@ const EditEmployer = (props) => {
                 <br />
 
                 <TextField
+                    name="lastname"
+                    label="Apellido"
+                    variant="filled"
+                    sx={{ marginBottom: "20px", width: "100%" }}
+                    value={form.lastname}
+                    onChange={handleChange}
+                />
+                <br />
+
+                <TextField
                     name="email"
                     label="Correo"
                     variant="filled"
@@ -123,14 +135,20 @@ const EditEmployer = (props) => {
                 />
                 <br />
 
-                <TextField
-                    name="address"
-                    label="Dirección"
-                    variant="filled"
-                    sx={{ marginBottom: "20px", width: "100%" }}
-                    value={form.address}
-                    onChange={handleChange}
-                />
+                <FormControl sx={{ marginBottom: "20px", width: "100%" }}>
+                    <InputLabel>Locación</InputLabel>
+                    <Select
+                        name="location"
+                        value={form.location}
+                        label="Locación"
+                        onChange={handleChange}
+                    >
+                        {
+                            locationList.map((name, index) => (
+                                <MenuItem value={index} key={index}>{name}</MenuItem>
+                            ))}
+                    </Select>
+                </FormControl>
 
                 <br />
 
@@ -158,9 +176,9 @@ const EditEmployer = (props) => {
                         onChange={handleChange}
                         
                     >
-                        <MenuItem value={0}>Disponible</MenuItem>
-                        <MenuItem value={1}>Vacaciones</MenuItem>
-                        <MenuItem value={2}>Ocupado</MenuItem>
+                         {employerStatus.map((obj, index)=>(
+                            <MenuItem key={index} value={index}>{obj.name}</MenuItem>
+                        ))}
                         </Select>
                 </FormControl>
 

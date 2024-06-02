@@ -9,12 +9,16 @@ import {
     FormControl,
     FormControlLabel,
     TextField,
-    DialogActions
+    DialogActions,
+    InputLabel,
+    Select,
+    MenuItem
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import OKButton from "./OKButton";
 import CancelButton from "./CancelButton";
 import useForm from "../utils/useForm";
+import { ClientStatus } from "../utils/status";
 
 const EditClient = (props) => {
 
@@ -23,20 +27,24 @@ const EditClient = (props) => {
         rif: "",
         name: "",
         telephone: "",
-        address: "",
+        email: "",
+        location: 0,
+        status: 0
     }
 
 
-    const { updateList, isOpen, handleClose } = props
+    const { updateList, isOpen, handleClose, locationList } = props
     const [form, handleChange, reset] = useForm(initial)
 
 
     const save = () => {
         updateList({
-            rif: form.typeId+"-"+form.rif,
+            rif: form.typeId + "-" + form.rif,
             name: form.name,
             telephone: form.telephone,
-            address: form.address,
+            mail: form.mail,
+            location: form.location,
+            status: form.status
         })
         reset()
     }
@@ -101,13 +109,44 @@ const EditClient = (props) => {
                 <br />
 
                 <TextField
-                    name="address"
-                    label="Dirección"
+                    name="email"
+                    label="E-mail"
                     variant="filled"
                     sx={{ marginBottom: "20px", width: "100%" }}
-                    value={form.address}
+                    value={form.email}
                     onChange={handleChange}
                 />
+                <br />
+
+                <FormControl sx={{ marginBottom: "20px", width: "100%" }}>
+                    <InputLabel>Locación</InputLabel>
+                    <Select
+                        name="location"
+                        value={form.location}
+                        label="Locación"
+                        onChange={handleChange}
+                    >
+                        {
+                            locationList.map((name, index) => (
+                                <MenuItem value={index} key={index}>{name}</MenuItem>
+                            ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl sx={{ marginBottom: "20px", width: "100%" }}>
+                    <InputLabel>Status</InputLabel>
+                    <Select
+                        name="status"
+                        value={form.status}
+                        label="Status"
+                        onChange={handleChange}
+                    >
+                        {
+                            ClientStatus.map((obj, index) => (
+                                <MenuItem value={index} key={index}>{obj.name}</MenuItem>
+                            ))}
+                    </Select>
+                </FormControl>
 
             </DialogContent>
             <DialogActions>
